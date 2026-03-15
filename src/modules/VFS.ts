@@ -1,5 +1,5 @@
 import { Database } from "bun:sqlite";
-import { createSign, createVerify, generateKeyPairSync } from "crypto";
+import { sign as cryptoSign, verify as cryptoVerify, generateKeyPairSync, createPrivateKey, createPublicKey } from "crypto";
 import { join } from "path";
 import { existsSync, mkdirSync, writeFileSync, readFileSync } from "fs";
 import { CONFIG } from "../config";
@@ -45,16 +45,15 @@ export class RUDOLPH_VFS {
   }
 
   sign(payload: string): string {
-    return createSign("SHA256")
-      .update(payload)
-      .sign(this.privateKey, "hex");
+    const key = createPrivateKey(this.privateKey);
+    const signature = cryptoSign(null, Buffer.from(payload), key);
+    return signature.toString("hex");
   }
 
   verify(sig: string, payload: string, remotePubKey?: string): boolean {
     try {
-      return createVerify("SHA256")
-        .update(payload)
-        .verify(remotePubKey ?? this.publicKey, sig, "hex");
+      const key = createPublicKey(remotePubKey ?? this.publicKey);
+      return cryptoVerify(null, Buffer.from(payload), key, Buffer.from(sig, "hex"));
     } catch {
       return false;
     }

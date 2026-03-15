@@ -1,3 +1,4 @@
+import { existsSync } from "fs";
 import { CONFIG } from "../config";
 
 export interface VehicleState {
@@ -14,6 +15,10 @@ export class VehicleBus {
 
   async connect() {
     try {
+      if (!existsSync(CONFIG.VEHICLE_PORT)) {
+        throw new Error(`Serial device not found: ${CONFIG.VEHICLE_PORT}`);
+      }
+
       const { SerialPort } = await import("serialport");
       const { ReadlineParser } = await import("@serialport/parser-readline");
 
