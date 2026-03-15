@@ -1,0 +1,29 @@
+{
+  "name": "rudolph-roadgod-monolith",
+  "version": "1.0.0",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun run src/index.ts",
+    "dev": "bun run --watch src/index.ts",
+    "lint": "bunx tsc --noEmit",
+    "build": "bun build src/index.ts --outdir ./dist --target bun"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs-node": "^4.17.0",
+    "axios": "^1.6.7",
+    "bonjour-service": "^1.2.1",
+    "bun-types": "latest",
+    "canvas": "^2.11.2",
+    "ethers": "^6.11.1",
+    "https-proxy-agent": "^7.0.2",
+    "mqtt": "^5.3.5",
+    "onoff": "^6.0.3",
+    "serialport": "^12.0.0",
+    "ws": "^8.16.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.5.10",
+    "typescript": "^5.3.3"
+  }
+}
