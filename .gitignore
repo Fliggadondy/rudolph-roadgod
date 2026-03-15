@@ -1,0 +1,9 @@
+node_modules/
+dist/
+vfs/
+*.identity
+*.identity.pub
+models/fatigue/model.json
+models/fatigue/weights.bin
+.env
+.env.local
