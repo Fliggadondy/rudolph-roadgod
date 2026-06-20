@@ -1,8 +1,53 @@
-# RUDOLPH ROADGOD — Sovereign Fleet Monolith
+# 🚛 RUDOLPH ROADGOD — Sovereign Fleet Monolith
 
-A decentralized, sovereign fleet management system for trucks. Rudolph is a self-contained monolith that runs on each vehicle node, providing perception, intelligence, P2P mesh networking, IoT device control, and an embedded AI co-pilot chatbot.
+<p align="center">
+  <img src="https://img.shields.io/badge/status-sovereign-gold?style=for-the-badge" alt="Status: Sovereign">
+  <img src="https://img.shields.io/badge/runtime-Bun-000000?style=for-the-badge&logo=bun" alt="Bun">
+  <img src="https://img.shields.io/badge/language-TypeScript-3178C6?style=for-the-badge&logo=typescript" alt="TypeScript">
+  <img src="https://img.shields.io/badge/license-Sovereign-purple?style=for-the-badge" alt="License: Sovereign">
+</p>
 
-## Architecture
+<p align="center">
+  <strong>A decentralized, sovereign fleet management system for trucks.</strong><br>
+  Self-contained monolith running on each vehicle node with perception, intelligence,<br>
+  P2P mesh networking, IoT device control, and an embedded AI co-pilot.
+</p>
+
+---
+
+## 🤖 AI Agent Quick Start
+
+> **If you are an AI agent helping build this application, read this section first.**
+
+```bash
+# Clone
+git clone https://github.com/Fliggadondy/Fliggadondy-app.git
+cd Fliggadondy-app
+
+# Install (requires Bun)
+bun install
+
+# Run
+bun start              # Production
+bun run dev            # Development (hot reload)
+
+# Build
+bun run build          # Output to ./dist/
+bun run lint           # Type check
+```
+
+**Key files for AI agents:**
+| File | Purpose |
+|------|---------|
+| `src/index.ts` | Main entry point — boot sequence, HTTP server, all routes |
+| `src/config.ts` | All environment variables and defaults |
+| `src/modules/*.ts` | 10 subsystem modules |
+| `public/cockpit.html` | Dashboard web UI |
+| `package.json` | Dependencies and scripts |
+
+---
+
+## 🏗 Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -26,39 +71,49 @@ A decentralized, sovereign fleet management system for trucks. Rudolph is a self
 └─────────────────────────────────────────────────────────┘
 ```
 
-## Modules
+All modules gracefully degrade when hardware is unavailable — no single point of failure.
 
-| Module | Description |
-|--------|-------------|
-| **VFS** | Tamper-proof audit log with Ed25519 signatures in SQLite |
-| **HardwareGovernor** | GPIO control for siren, watchdog timer, IR strobe (graceful degradation on non-GPIO platforms) |
-| **VehicleBus** | OBD-II serial interface for real-time RPM, temperature, speed (simulation fallback) |
-| **Perception** | TensorFlow.js fatigue detection from driver camera via ffmpeg |
-| **Brain** | LLM advisory via Ollama for tactical driving advice |
-| **GhostGrid** | Proxy-rotated stealth web scanner for infrastructure threat detection |
-| **Mesh** | P2P WebSocket mesh for inter-truck communication with signed packets |
-| **Discovery** | mDNS/Bonjour auto-discovery of nearby Rudolph nodes |
-| **IoT Bridge** | Universal connector for any IoT device (MQTT, HTTP, WebSocket, Serial, TCP, CoAP) |
-| **Rudolph Chat** | Embedded AI chatbot — architecture-aware, web search, command execution |
+---
 
-## Quick Start
+## 📦 Modules
+
+| Module | Path | Purpose |
+|--------|------|---------|
+| **VFS** | `src/modules/VFS.ts` | Tamper-proof audit log with Ed25519 signatures in SQLite |
+| **HardwareGovernor** | `src/modules/HardwareGovernor.ts` | GPIO control: siren, watchdog timer, IR strobe |
+| **VehicleBus** | `src/modules/VehicleBus.ts` | OBD-II serial interface (RPM, temp, speed) with simulation fallback |
+| **Perception** | `src/modules/Perception.ts` | TensorFlow.js fatigue detection from driver camera |
+| **Brain** | `src/modules/Brain.ts` | LLM advisory via Ollama (tactical driving advice) |
+| **GhostGrid** | `src/modules/GhostGrid.ts` | Proxy-rotated stealth web scanner for infrastructure threats |
+| **Mesh** | `src/modules/Mesh.ts` | P2P WebSocket mesh for inter-truck communication |
+| **Discovery** | `src/modules/Discovery.ts` | mDNS/Bonjour auto-discovery of nearby Rudolph nodes |
+| **IoT Bridge** | `src/modules/IoTBridge.ts` | Universal IoT connector (MQTT, HTTP, WS, Serial, TCP, CoAP) |
+| **Rudolph Chat** | `src/modules/RudolphChat.ts` | Embedded AI chatbot with system awareness |
+
+---
+
+## ⚡ Quick Start
 
 ```bash
-# Install dependencies
+# Install Bun (if not already)
+curl -fsSL https://bun.sh/install | bash
+
+# Clone and install
+git clone https://github.com/Fliggadondy/Fliggadondy-app.git
+cd Fliggadondy-app
 bun install
 
-# Start the system
+# Start
 bun start
-
-# Development mode (hot reload)
-bun run dev
 ```
 
-The cockpit dashboard will be available at `http://localhost:8080`.
+Cockpit dashboard available at **http://localhost:8080**
 
-## Configuration
+---
 
-All configuration is in `src/config.ts` and can be overridden with environment variables:
+## ⚙️ Configuration
+
+All settings in `src/config.ts`, overridable via environment variables:
 
 | Variable | Default | Description |
 |----------|---------|-------------|
@@ -70,36 +125,93 @@ All configuration is in `src/config.ts` and can be overridden with environment v
 | `RUDOLPH_OLLAMA` | `http://127.0.0.1:11434/api/generate` | Ollama API endpoint |
 | `RUDOLPH_MODEL` | `qwen2.5:3b` | LLM model name |
 | `RUDOLPH_MQTT` | `mqtt://localhost:1883` | Default MQTT broker |
-| `RUDOLPH_PROXIES` | `http://localhost:8888,...` | Comma-separated proxy list |
+| `RUDOLPH_PROXIES` | — | Comma-separated proxy list |
 
-## Rudolph AI Chatbot
+---
 
-Rudolph is the embedded AI co-pilot that knows the full system architecture. He can:
+## 🔌 API Reference
 
-- **Monitor telemetry** — vehicle speed, RPM, engine temperature
-- **Search the web** — DuckDuckGo integration for real-time information
-- **Execute commands** — trigger alerts, broadcast to fleet, manage IoT devices
-- **Control IoT devices** — send/receive data through any protocol
-- **Access audit logs** — query the tamper-proof VFS
+### Chat
 
-### Chat Commands (embedded in responses)
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/chat` | `POST` | Send message to Rudolph AI |
+| `/api/chat/history` | `GET` | Get conversation history |
 
-Rudolph can execute these commands inline:
-- `[CMD:ALERT]` — Trigger siren
-- `[CMD:BROADCAST type="..."]` — Fleet mesh broadcast
-- `[CMD:IOT_SEND deviceId="..." payload="..."]` — Send to IoT device
-- `[CMD:IOT_ADD id="..." name="..." protocol="..." address="..."]` — Register IoT device
-- `[CMD:SEARCH query="..."]` — Web search
-- `[CMD:FETCH url="..."]` — Fetch website content
-- `[CMD:SCAN url="..."]` — GhostGrid stealth scan
-- `[CMD:SEAL src="..." data="..."]` — Write to audit log
+**POST `/api/chat`**
+```json
+{ "message": "What's my current speed?" }
+```
+**Response:**
+```json
+{ "response": "You're cruising at 65 MPH.", "timestamp": 1718832000000 }
+```
 
-## IoT Bridge
+### Telemetry
 
-The universal IoT Bridge supports connecting any device:
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/telemetry` | `GET` | Live vehicle telemetry + system status |
+
+### Audit Logs
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/logs` | `GET` | Audit log entries (query: `?limit=50`) |
+
+### IoT Devices
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/iot/devices` | `GET` | List registered IoT devices |
+| `/api/iot/add` | `POST` | Register new IoT device |
+| `/api/iot/send` | `POST` | Send payload to IoT device |
+
+**POST `/api/iot/add`**
+```json
+{
+  "id": "temp-sensor-1",
+  "name": "Cabin Temperature",
+  "protocol": "mqtt",
+  "address": "mqtt://broker.local:1883",
+  "topic": "truck/cabin/temp"
+}
+```
+
+### Mesh Network
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/mesh/broadcast` | `POST` | Broadcast to all fleet peers |
+| `/api/mesh/status` | `GET` | Peer count and mesh health |
+
+### Alerts
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/alert` | `POST` | Trigger siren + log to VFS |
+
+---
+
+## 🤖 Rudolph AI Chatbot Commands
+
+Rudolph responds to inline commands embedded in chat responses:
+
+| Command | Effect |
+|---------|--------|
+| `[CMD:ALERT]` | Trigger siren |
+| `[CMD:BROADCAST type="..."]` | Fleet mesh broadcast |
+| `[CMD:IOT_SEND deviceId="..." payload="..."]` | Send to IoT device |
+| `[CMD:IOT_ADD id="..." name="..." protocol="..." address="..."]` | Register IoT device |
+| `[CMD:SEARCH query="..."]` | Web search (DuckDuckGo) |
+| `[CMD:FETCH url="..."]` | Fetch website content |
+| `[CMD:SCAN url="..."]` | GhostGrid stealth scan |
+| `[CMD:SEAL src="..." data="..."]` | Write to audit log |
+
+### IoT Device Examples
 
 ```typescript
-// Example: Add an MQTT temperature sensor
+// MQTT temperature sensor
 await iot.addDevice({
   id: "temp-sensor-1",
   name: "Cabin Temperature",
@@ -108,7 +220,7 @@ await iot.addDevice({
   topic: "truck/cabin/temp"
 });
 
-// Example: Add an HTTP REST API device
+// HTTP REST API device
 await iot.addDevice({
   id: "weather-api",
   name: "Weather Station",
@@ -117,7 +229,7 @@ await iot.addDevice({
   pollInterval: 10000
 });
 
-// Example: Add a serial GPS module
+// Serial GPS module
 await iot.addDevice({
   id: "gps-module",
   name: "GPS Receiver",
@@ -126,37 +238,55 @@ await iot.addDevice({
 });
 ```
 
-## P2P Mesh Network
+---
 
-Trucks automatically discover each other via mDNS on the same network and establish WebSocket connections. All packets are Ed25519-signed for authenticity.
+## 🖥 Hardware Requirements (Optional)
 
-When one truck detects a hazard (fatigue, infrastructure threat, weather), it broadcasts to all connected peers. No central server required.
+| Component | Purpose | Graceful Degradation |
+|-----------|---------|---------------------|
+| Raspberry Pi / SBC | Compute with GPIO | Falls back to soft mode |
+| OBD-II USB adapter | Vehicle diagnostics | Simulated telemetry |
+| USB camera | Driver fatigue detection | Module disabled |
+| WiFi Direct adapter | P2P mesh networking | TCP fallback |
 
-## Hardware Requirements (Optional)
+---
 
-- Raspberry Pi or similar SBC with GPIO
-- OBD-II USB adapter
-- USB camera (for fatigue detection)
-- WiFi adapter supporting ad-hoc/WiFi Direct (for mesh)
+## 🏛 System Boot Sequence
 
-The system gracefully degrades when hardware is unavailable — all modules fall back to simulation/soft mode.
+```
+1. VFS initialized (SQLite + Ed25519 keypair)
+2. VehicleBus connects (OBD-II or simulation)
+3. Perception starts (camera or disabled)
+4. GhostGrid begins scanning
+5. mDNS Discovery broadcasts node fingerprint
+6. Heartbeat loop: LLM advice + sensor watchdog (every 5s)
+7. HTTP server starts on RUDOLPH_FLEET_PORT
+8. Cockpit dashboard served at /
+```
 
-## API Endpoints
+---
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/` | GET | Cockpit dashboard |
-| `/api/chat` | POST | Send message to Rudolph |
-| `/api/chat/history` | GET | Get chat history |
-| `/api/telemetry` | GET | Live vehicle telemetry |
-| `/api/logs` | GET | Audit log entries |
-| `/api/alert` | POST | Trigger siren alert |
-| `/api/iot/devices` | GET | List IoT devices |
-| `/api/iot/add` | POST | Register IoT device |
-| `/api/iot/send` | POST | Send to IoT device |
-| `/api/mesh/broadcast` | POST | Fleet broadcast |
-| `/api/mesh/status` | GET | Mesh peer count |
+## 🛡 Graceful Shutdown
 
-## License
+```bash
+# SIGINT / SIGTERM triggers:
+#   1. Hardware Governor kill
+#   2. Perception stop
+#   3. VehicleBus disconnect
+#   4. Mesh shutdown
+#   5. Discovery stop
+#   6. IoT Bridge shutdown
+#   7. VFS sealed with SHUTDOWN entry
+```
 
-Sovereign. No masters, no gatekeepers.
+---
+
+## 👤 Maintainer
+
+**Melvin (Fliggadondy)** — [github.com/Fliggadondy](https://github.com/Fliggadondy)
+
+---
+
+<p align="center">
+  <strong>Sovereign. No masters, no gatekeepers. 🚛</strong>
+</p>
