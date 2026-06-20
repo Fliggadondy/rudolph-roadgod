@@ -6,6 +6,7 @@
   "scripts": {
     "start": "bun run src/index.ts",
     "dev": "bun run --watch src/index.ts",
+    "demo": "bash demo.sh",
     "lint": "bunx tsc --noEmit",
     "build": "bun build src/index.ts --outdir ./dist --target bun"
   },

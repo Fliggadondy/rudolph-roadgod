@@ -1,17 +1,43 @@
-# 🚛 RUDOLPH ROADGOD — Sovereign Fleet Monolith
+# 🦌 RUDOLPH ROADGOD — Sovereign Fleet Monolith
 
 <p align="center">
   <img src="https://img.shields.io/badge/status-sovereign-gold?style=for-the-badge" alt="Status: Sovereign">
   <img src="https://img.shields.io/badge/runtime-Bun-000000?style=for-the-badge&logo=bun" alt="Bun">
   <img src="https://img.shields.io/badge/language-TypeScript-3178C6?style=for-the-badge&logo=typescript" alt="TypeScript">
-  <img src="https://img.shields.io/badge/license-Sovereign-purple?style=for-the-badge" alt="License: Sovereign">
+  <img src="https://img.shields.io/badge/license-AGPL%20v3-blue?style=for-the-badge" alt="License: AGPL v3">
+  <img src="https://img.shields.io/badge/pricing-%2429–49%2Ftruck%2Fmo-green?style=for-the-badge" alt="Pricing: $29-49/truck/mo">
 </p>
 
 <p align="center">
   <strong>A decentralized, sovereign fleet management system for trucks.</strong><br>
   Self-contained monolith running on each vehicle node with perception, intelligence,<br>
-  P2P mesh networking, IoT device control, and an embedded AI co-pilot.
+  P2P mesh networking, IoT device control, and an embedded AI co-pilot.<br>
+  <strong>AGPL v3 — commercial licensing available.</strong>
 </p>
+
+<p align="center">
+  <a href="public/landing.html"><strong>🌐 Product Landing Page</strong></a> ·
+  <a href="PITCH.md"><strong>📊 Pitch Deck</strong></a> ·
+  <a href="COMPETITORS.md"><strong>⚔️ Competitor Analysis</strong></a> ·
+  <a href="BUYERS.md"><strong>🎯 Buyer Leads</strong></a>
+</p>
+
+---
+
+## 💰 Monetizable Products
+
+RUDOLPH's IP is modular. These are sellable standalone today:
+
+| Product | Price | Regulatory Hook |
+|---------|-------|----------------|
+| 🛡 **ELD Compliance Module** | $29/truck/mo | FMCSA ELD mandate |
+| 😴 **Fatigue Detection** | $19/truck/mo | EU 2019/2144 mandate |
+| 📡 **P2P Mesh Network** | $15/truck/mo | Offline-first ops |
+| 🌉 **IoT Bridge** | $5k/yr license | Universal sensor integration |
+| 🧠 **Edge AI Co-Pilot** | $9/truck/mo | Privacy-first, no API costs |
+| 🏆 **Full Stack** | $49/truck/mo | Everything bundled |
+
+📖 **[Full product landing page →](public/landing.html)** | 🎯 **[8 qualified buyer leads →](BUYERS.md)** | ⚔️ **[Competitor analysis →](COMPETITORS.md)**
 
 ---
 
